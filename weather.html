@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weather">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myweather">
+    <table>
+        <tr>
+            <th>日期</th>
+            <th>白天天气</th>
+            <th>夜晚天气</th>
+            <th>天气</th>
+            <th>风向</th>
+            <th>温度</th>
+        </tr>
+        <tr ng-repeat="x in weather">
+            <td>{{x.date}}</td>
+            <td><img src="{{x.dayPictureUrl}}" /></td>
+            <td><img src="{{x.nightPictureUrl}}" /></td>
+            <td>{{x.weather}}</td>
+            <td>{{x.wind}}</td>
+            <td>{{x.temperature}}</td>
+        </tr>
+    </table>
+</div>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("weather",[]);
+    app.controller("myweather",function($scope,$http){
+        $http({
+            method:"JSONP",//method必须是jsonp的格式
+            url:"http://api.map.baidu.com/telematics/v3/weather?callback=JSON_CALLBACK",//在url后面必须跟上JSON_CALLBACK
+            params:{
+                location:"武汉",
+                output:"json",
+                ak:"0A5bc3c4fb543c8f9bc54b77bc155724"
+            }
+        }).then(function successCallback(info){
+            console.log(info);
+            $scope.weather = info.data.results[0].weather_data;
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("myApp",[]);
+    app.controller("myctr",function($scope){
+        $http({
+            method:"GET",
+            url:"aaa.json",
+            //GET方式传参
+            params:{
+                name:"张三",
+                age:13
+            },
+            //post传参
+            data:{
+                page:5
+            }
+        }).then(function successCallback(info){
+            console.log(info);
+        },function errorCallback(info){
+            console.log(info);
+        })
+
+        //$http简写
+        $http.get('/someUrl', config).then(successCallback, errorCallback);
+
+    })
+</script>
+</body>
+</html>

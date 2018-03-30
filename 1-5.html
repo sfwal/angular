@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <div ng-controller="myctr">
+        <p>{{one | uppercase}}</p>
+        <p>{{two | lowercase}}</p>
+        <p>{{three | date:"yyyy-MM-dd hh:mm:ss"}}</p>
+        <p>{{four | number:2}}</p>
+        <p>{{20 | currency:"RMB "}}</p>
+        <p>{{five | filter:{'name':'hanmeimei'} }}</p>
+        <p>{{two | limitTo:-3}}</p>
+        <p>{{five | orderBy:"age":true}}</p>
+        <ul>
+            <li ng-repeat="x in five | orderBy:'age':true">
+                {{x.name | uppercase}},{{x.age}} from {{x.from}}
+            </li>
+        </ul>
+        <p>{{six | sort1}}</p>
+    </div>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("myApp",[]);
+    app.controller("myctr",function($scope){
+        $scope.one = "fewfefeef";
+        $scope.two = "EWAFWEDVDVD";
+        $scope.three = 1688234448876;
+        $scope.four = 1231312.21234324;
+        $scope.five = [
+            {'id':1,'name':'hanmeimei','age':13,'from':'china'},
+            {'id':2,'name':'lilei','age':14,'from':'china'},
+            {'id':3,'name':'lily','age':12,'from':'usa'}
+        ];
+        $scope.six = "1688234448876";
+        $scope.seven = [12,3,423,43,4,56,32,21,34];
+    })
+    //var arr = [12,3,423,43,4,56,32,21,34]
+    app.filter("sort1",function(){
+        return function(str){
+            return str.split("").sort();
+        }
+    });
+    app.filter('sort2',function(){
+        return function(txt){
+            return txt.sort(function(a,b){
+                return a-b;
+            })
+        }
+    })
+    // console.log(arr.sort(function(a,b){
+    //     return a-b;
+    // }));
+</script>
+</body>
+</html>

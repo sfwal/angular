@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myctr">
+    <p>{{url}}</p>
+    <p>{{protocol}}</p>
+    <p>{{port}}</p>
+    <p>{{hash}}</p>
+    <h3>{{txt}}</h3>
+    <h2>{{time | date:"yyyy-MM-dd hh:mm:ss"}}</h2>
+    <p>{{cxt}}</p>
+</div>
+
+
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller("myctr",function($scope,$location,$timeout,$interval,$filter,$log){
+        //console.log($location);
+        //绝对路径
+        $scope.url = $location.absUrl();
+        //协议
+        $scope.protocol = $location.protocol();
+        //端口
+        $scope.port = $location.port();
+        //hash值
+        $scope.hash = $location.hash();
+
+        //$timeout
+        $scope.txt = "我们来看一下3秒之后这段文字是不是变了？";
+        $timeout(function(){
+            $scope.txt = "快看，它果然变了，好神奇！";
+        },3000)
+
+        //$interval
+        $scope.time = new Date();
+        $interval(function(){
+            $scope.time = new Date();
+        },1000)
+
+        //$filter
+        $scope.cxt = "dwfwffwf";
+        var uppercase = $filter('uppercase');
+        $scope.cxt = uppercase($scope.cxt);
+
+        $scope.cxt = $filter('uppercase')($scope.cxt);
+        var $scope.time = new Date();
+        {{time | date:"yyyy/MM/dd"}}
+        $filter('date')($scope.time,"yyyy-MM-dd");
+
+
+
+        //$log打印调试信息
+        $log.log("日志");
+        $log.info("信息");
+
+    })
+</script>
+</body>
+</html>

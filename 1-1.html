@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="box" ng-app="">
+        <label>请输入您的名字</label>
+        <input type="text" ng-model="name"/>
+
+        <h3 >您好，{{name}}</h3>
+
+        <h4>您好，<span ng-bind="name"></span></h4>
+    </div>
+
+
+<script src="angular.min.js"></script>
+</body>
+</html>

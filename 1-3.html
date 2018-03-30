@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <!-- angular双向绑定 -->
+    <!-- <div ng-app="" ng-init="danjia=15;shuliang=3">
+        <label>商品单价：</label><input type="text" ng-model="danjia">
+        <label>商品数量：</label><input type="text" ng-model="shuliang">
+        <h3>商品总价：{{danjia*shuliang}}</h3>
+    </div> -->
+
+    <!-- <div ng-app="" ng-init="stu=[
+        {'name':'张三','school':'武汉大学'},
+        {'name':'李四','school':'华中科技大学'},
+        {'name':'王五','school':'华中农业大学'},
+    ]">
+        <ul>
+            <li ng-repeat="x in stu">
+                {{x.name}}就读于{{x.school}}
+            </li>
+        </ul>
+    </div> -->
+
+    <!-- 自定义指令 -->
+    <div class="box1" ng-app="myApp">
+        <!-- 通过元素名来调用指令 -->
+        <!-- <my-directive></my-directive> -->
+        <span class="'my-directive"></span>
+    </div>
+
+<script src="angular.min.js"></script>
+<script>
+    angular.module("myApp",[]).directive('myDirective',function(){
+            return{
+                //restrict:"AEC",
+                template:"<h1>这是我创建的第一条指令！</h1>"
+            }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="stu">
+
+</div>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("myApp",[]);
+    app.controller("stu",function($scope,$log,$http){
+        $http({
+            method:"GET",
+            url:"http://localhost/list.json"
+        }).then(function successCallback(info){
+            $log.log(info);
+        })
+    })
+</script>
+</body>
+</html>

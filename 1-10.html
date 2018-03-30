@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <div ng-controller="myctr">
+        <button type="button" ng-disabled="false">是否可以点击</button>
+        <input type="checkbox" ng-model="all" /> 全选
+
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+        <input type="checkbox" ng-checked="all" />
+
+        <p ng-show="aaa">是不是在显示</p>
+        <button ng-click="hide()">点击试试</button>
+
+    </div>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("myApp",[]);
+    app.controller("myctr",function($scope){
+        $scope.aaa = true;
+        $scope.hide = function(){
+            $scope.aaa = false;
+        }
+    })
+</script>
+</body>
+</html>

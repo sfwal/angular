@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="shop">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="box" ng-controller="shopc">
+        <table>
+            <tr>
+                <th><input type="checkbox" ng-model="checkall" ng-click="all(checkall)">全选</th>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>商品单价</th>
+                <th>商品数量</th>
+                <th>商品小计</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="x in product">
+                <td><input type="checkbox" ng-model="x.state" ng-click="check(x.state,$index,x)"></td>
+                <td>{{x.id}}</td>
+                <td>{{x.name}}</td>
+                <td>{{x.price}}</td>
+                <td>
+                    <button ng-click="reduce($index)">-</button>
+                    <input type="number" ng-model="x.quantity" ng-change="change($index)"/>
+                    <button ng-click="add($index)">+</button>
+                </td>
+                <td>{{x.price * x.quantity}}</td>
+                <td><input type="button" value="删除" ng-click="del($index)"/></td>
+            </tr>
+        </table>
+        <div class="foot">
+            <span>总价：</span><span ng-bind="total() | currency:'￥ '"></span>
+            <span>数量：</span><span ng-bind="count()"></span>
+            <input type="button" value="清空购物车" ng-click="delall()"/>
+        </div>
+
+        <div>
+            <ul>
+                <li ng-repeat="a in arr">
+                    {{a.name}} {{a.quantity}} {{a.price}}
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module("shop",[]);
+    app.controller("shopc",function($scope){
+        //定义数据
+        $scope.product = [
+            {
+                "id":1,
+                "name":"海尔洗衣机",
+                "quantity":1,
+                "price":4888
+            },
+            {
+                "id":2,
+                "name":"小米空调",
+                "quantity":3,
+                "price":3499
+            },
+            {
+                "id":3,
+                "name":"小米电视",
+                "quantity":1,
+                "price":4999
+            },
+            {
+                "id":4,
+                "name":"美的冰箱",
+                "quantity":1,
+                "price":3000
+            },
+            {
+                "id":5,
+                "name":"方太抽油烟机",
+                "quantity":1,
+                "price":5999
+            },
+            {
+                "id":6,
+                "name":"长城WEY VV7",
+                "quantity":1,
+                "price":180000
+            }
+        ];
+        $scope.arr = [];
+        //全选
+        $scope.all = function(checkall){
+            if(checkall == true){
+                for(var i=0;i<$scope.product.length;i++){
+                    $scope.arr[i] = $scope.product[i];
+                    $scope.product[i].state = true;
+                }
+                $scope.aa = true;
+            }else{
+                $scope.arr = [];
+                for(var i=0;i<$scope.product.length;i++){
+                    $scope.product[i].state = false;
+                }
+            }
+        }
+        //单选
+        $scope.check = function(state,index,item){
+            //选中
+            if(state == true){
+                $scope.arr.push(item);
+                if($scope.arr.length == $scope.product.length){
+                    $scope.checkall = true;
+                }
+            }else{
+                var a = $scope.arr.indexOf(item);
+                $scope.checkall = false;
+                $scope.arr.splice(a,1);
+            }
+        }
+        //计算总价
+        $scope.total = function(){
+            var allprice = 0;
+            for(var i=0;i<$scope.arr.length;i++){
+                allprice +=  $scope.arr[i].price * $scope.arr[i].quantity;
+            }
+            return allprice;
+        }
+        //计算总数量
+        $scope.count = function(){
+            var allcount = 0;
+            for(var i=0;i<$scope.arr.length;i++){
+                allcount += $scope.arr[i].quantity;
+            };
+            return allcount;
+        }
+        //添加商品数量
+        $scope.add = function(index){
+            $scope.product[index].quantity++;
+        }
+        //减少商品数量
+        $scope.reduce = function(index){
+            if($scope.product[index].quantity > 1){
+                $scope.product[index].quantity--;
+            }else{
+                $scope.del(index);
+            }
+        }
+        //解决输入框输入负数的情况
+        $scope.change = function(index){
+            if($scope.product[index].quantity < 0){
+                alert("请输入大于1的整数");
+            }
+        }
+        //删除
+        $scope.del = function(index){
+            if(confirm("是否要删除该商品？")){
+                $scope.product.splice(index,1);
+            }
+        }
+        //清空购物车
+        $scope.delall = function(){
+            if(confirm("是否要清空购物车？")){
+                $scope.product = [];
+            }
+        }
+    })
+</script>
+</body>
+</html>

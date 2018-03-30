@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myctr">
+    <p>{{time}}</p>
+</div>
+
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module('myApp',[]);
+    //自定义服务
+    app.factory("showtime",function($filter){
+        var now = new Date();
+        now = $filter("date")(now,"yyyy/MM/dd");
+        return now;
+    });
+    app.service("showtime",function($filter){
+        var now = new Date();
+        now = $filter("date")(now,"yyyy/MM/dd");
+        return now;
+    });
+
+    //定义常量
+    app.value("a","张三");
+
+    //调用服务
+    // app.controller("myctr",function($scope,showtime){
+    //     $scope.time = showtime;
+    // })
+    //
+    app.controller('myctr',function($scope,a){
+        $scope.time = a;
+    })
+</script>
+</body>
+</html>

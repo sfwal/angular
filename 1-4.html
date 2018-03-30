@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <h1 ng-controller="myctr">{{name}},{{from}}</h1>
+
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module('myApp',[]);
+    //定义一个名字为myctr的控制器
+    app.controller("myctr",function($scope,$rootScope){
+        $scope.name="你好";
+        $rootScope.from = "china";
+    })
+
+</script>
+</body>
+</html>
